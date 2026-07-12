@@ -24,7 +24,7 @@ async function fetchPopularBooks() {
         <div class="card__header">
           <h3 class="card__title">${book.title}</h3>
           <p class="card__description">${book.description}</p>
-          <a class="card__link" href="book.html?book=${encodeURIComponent(key)}">Open book</a>
+          <a class="card__link" href="cambridge-ielts/?book=${encodeURIComponent(key)}">Open book</a>
         </div>
       </article>
     `).join('');

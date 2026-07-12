@@ -1,6 +1,11 @@
 import { registerServiceWorker } from './pwa.js';
 
-const booksUrl = 'data/book.json';
+const booksUrl = '../data/book.json';
+
+function getBookUrl(key) {
+  return `?book=${encodeURIComponent(key)}`;
+}
+
 const pageTitle = document.getElementById('pageTitle');
 const metaDescription = document.getElementById('metaDescription');
 const canonicalLink = document.getElementById('canonicalLink');
@@ -43,9 +48,18 @@ function getBookKeyFromUrl() {
   if (params.has('book')) return params.get('book');
 
   const pathname = window.location.pathname.replace(/\/index\.html$/, '/');
-  const path = pathname.replace(/\/book\/?/, '').replace(/\.html$/, '').replace(/^\//, '').replace(/\/+$/,'');
-  return path || null;
+  // Match the folder name inside /book/
+  const match = pathname.match(/\/book\/([^/]+)/);
+  if (match) return match[1];
+  
+  // Fallback: match any folder structure
+  const parts = pathname.split('/').filter(Boolean);
+  if (parts.length > 0) {
+    return parts[parts.length - 1];
+  }
+  return null;
 }
+
 
 function getCurrentUrl() {
   return window.location.href;
@@ -99,8 +113,9 @@ function populateBookDetails(book) {
   bookTitle.textContent = book.title;
   breadcrumbBook.textContent = book.title;
   bookTagline.textContent = book.description;
-  bookImage.src = book.image;
+  bookImage.src = book.image || 'assets/images/placeholder.svg';
   bookImage.alt = `${book.title} cover`;
+  bookImage.onerror = () => { bookImage.onerror = null; bookImage.src = 'assets/images/placeholder.svg'; };
   bookCategory.textContent = book.category || 'Book';
   bookDescription.textContent = book.description;
   downloadButton.href = book.download;
@@ -123,7 +138,7 @@ function renderBookExtras(book) {
     ${recentBooks.length ? `<div class="recent-shell"><h3>Recently viewed</h3><ul>${recentBooks
       .map((slug) => {
         const item = booksData[slug];
-        return `<li><a href="book.html?book=${encodeURIComponent(slug)}">${item ? item.title : slug}</a></li>`;
+        return `<li><a href="${getBookUrl(slug)}">${item ? item.title : slug}</a></li>`;
       })
       .join('')}</ul></div>` : ''}
   `;
@@ -137,24 +152,25 @@ function setViewCount() {
 }
 
 function populateRelatedBooks(book) {
+  if (!relatedBooksGrid) return;
   const normalized = book.title.toLowerCase().split(' ')[0];
   const related = Object.entries(booksData)
     .filter(([key]) => key !== bookKey)
     .filter(([, item]) => item.title.toLowerCase().includes(normalized))
     .slice(0, 4);
 
-  relatedCount.textContent = `Related: ${related.length}`;
+  if (relatedCount) relatedCount.textContent = `Related: ${related.length}`;
   relatedBooksGrid.innerHTML = '';
 
   related.forEach(([key, item]) => {
     const card = document.createElement('article');
     card.className = 'card';
     card.innerHTML = `
-      <img loading="lazy" class="card__image" src="${item.image}" alt="${item.title}" />
+      <img loading="lazy" class="card__image" src="${item.image || 'assets/images/placeholder.svg'}" alt="${item.title}" onerror="this.onerror=null;this.src='assets/images/placeholder.svg'" />
       <div class="card__header">
         <h3 class="card__title">${item.title}</h3>
         <p class="card__description">${item.description}</p>
-        <a class="card__link" href="book.html?book=${encodeURIComponent(key)}">Open book</a>
+        <a class="card__link" href="${getBookUrl(key)}">Open book</a>
       </div>
     `;
     relatedBooksGrid.appendChild(card);
@@ -186,7 +202,7 @@ function loadFavoriteState() {
 
 function installClipboard() {
   copyLinkButton.addEventListener('click', async () => {
-    const url = `${window.location.origin}${window.location.pathname}?book=${encodeURIComponent(bookKey)}`;
+    const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
       copyLinkButton.textContent = 'Link Copied';
@@ -206,7 +222,7 @@ function installShare() {
       await navigator.share({
         title: bookTitle.textContent,
         text: bookDescription.textContent,
-        url: `${window.location.origin}${window.location.pathname}?book=${encodeURIComponent(bookKey)}`
+        url: window.location.href
       });
     } catch (error) {
       console.error(error);
@@ -222,8 +238,8 @@ async function loadBook() {
     bookKey = getBookKeyFromUrl();
 
     if (!bookKey || !booksData[bookKey]) {
-      window.location.href = '404.html';
-      return;
+        renderNotFound();
+        return;
     }
 
     const book = booksData[bookKey];
@@ -236,7 +252,40 @@ async function loadBook() {
     installShare();
   } catch (error) {
     console.error(error);
-    window.location.href = '404.html';
+    renderNotFound();
+  }
+}
+
+function renderNotFound() {
+  pageTitle.textContent = 'Book Not Found • Arif Academy';
+  if (bookTitle) bookTitle.textContent = 'Book Not Found';
+  if (bookTagline) bookTagline.textContent = 'The requested book could not be found.';
+  if (bookImage) bookImage.src = 'assets/images/placeholder.svg';
+  if (bookCategory) bookCategory.textContent = '';
+  if (bookDescription) bookDescription.textContent = 'Try searching a different title, or check the list of available books.';
+  if (downloadButton) { downloadButton.style.display = 'none'; }
+  if (copyLinkButton) { copyLinkButton.style.display = 'none'; }
+  // show popular books from data if available
+  if (relatedBooksGrid) {
+    relatedBooksGrid.innerHTML = '';
+    const entries = Object.entries(booksData || {}).slice(0, 6);
+    if (entries.length) {
+      entries.forEach(([key, book]) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <img loading="lazy" class="card__image" src="${book.image || 'assets/images/placeholder.svg'}" alt="${book.title}" onerror="this.onerror=null;this.src='assets/images/placeholder.svg'" />
+          <div class="card__header">
+            <h3 class="card__title">${book.title}</h3>
+            <p class="card__description">${book.description}</p>
+            <a class="card__link" href="${getBookUrl(key)}">Open book</a>
+          </div>
+        `;
+        relatedBooksGrid.appendChild(card);
+      });
+    } else {
+      relatedBooksGrid.innerHTML = '<p class="search-meta">No books available.</p>';
+    }
   }
 }
 

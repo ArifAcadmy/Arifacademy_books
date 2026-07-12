@@ -1,16 +1,14 @@
 const CACHE_NAME = 'book-library-cache-v1';
 const assetsToCache = [
   './',
-  './index.html',
   './book.html',
-  './404.html',
   './manifest.webmanifest',
   './assets/css/styles.css',
   './assets/js/index.js',
   './assets/js/book.js',
-  './assets/js/404.js',
   './assets/js/pwa.js',
   './data/book.json',
+  
   './assets/images/placeholder.svg',
   './assets/images/og-preview.svg',
   './assets/images/icon-192.svg',

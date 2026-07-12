@@ -22,22 +22,20 @@
   <div class="page-shell__layout">
     <header class="hero-panel">
       <div>
-        <p class="eyebrow">Arif Academy</p>
-        <h1>Static PDF Redirect Library</h1>
-        <p class="hero-copy">Fast static book redirects, search 10,000+ PDFs, and view download pages without backend code.</p>
+        <div class="hero-panel__info">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <img src="assets/logo.jpg" alt="Arif Academy Logo" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); box-shadow: var(--shadow-sm);" />
+            <p class="eyebrow" style="margin: 0;">Arif Academy</p>
+          </div>
+          <h1>Static PDF Redirect Library</h1>
+          <p class="hero-copy">Fast static book redirects, search 10,000+ PDFs, and view download pages without backend code.</p>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Dark</button>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Dark</button>
     </header>
 
     <main class="container">
-      <section class="search-panel" aria-label="Search books">
-        <div class="search-bar">
-          <input id="searchInput" type="search" placeholder="Search books by title, category, or keyword..." aria-label="Search books" />
-          <span class="search-icon">🔎</span>
-        </div>
-        <p class="search-meta" id="searchMeta">Load time optimized for 100k+ books.</p>
-      </section>
-
+      <div id="ad-banner-container" style="display: flex; justify-content: center; margin-bottom: 2rem; min-height: 60px; overflow: hidden; border-radius: 8px;"></div>
       <section class="cards-grid" id="booksGrid" aria-live="polite"></section>
     </main>
   </div>
@@ -47,5 +45,6 @@
   </footer>
 
   <script type="module" src="assets/js/index.js"></script>
+  <script type="module" src="assets/js/ads.js"></script>
 </body>
 </html>
