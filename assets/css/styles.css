@@ -807,3 +807,15 @@ h1 {
   line-height: 1.5;
 }
 
+/* Sidebar ad floating layout */
+@media (max-width: 1400px) {
+  .ad-sidebar-floating {
+    display: none !important;
+  }
+}
+@media (min-width: 1401px) {
+  .ad-sidebar-floating {
+    display: block !important;
+  }
+}
+
