@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Library • Arif Academy</title>
+  <meta name="description" content="Browse 10,000+ books and redirects from a fast static library. Search and open the PDF redirect pages instantly." />
+  <link rel="canonical" href="https://arifacademy.com/book/" />
+  <meta property="og:title" content="Book Library • Arif Academy" />
+  <meta property="og:description" content="Browse 10,000+ books and redirects from a fast static library. Search and open the PDF redirect pages instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://arifacademy.com/book/" />
+  <meta property="og:image" content="assets/images/og-preview.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book Library • Arif Academy" />
+  <meta name="twitter:description" content="Browse 10,000+ books and redirects from a fast static library. Search and open the PDF redirect pages instantly." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body class="page-shell" data-theme="light">
+  <div class="page-shell__layout">
+    <header class="hero-panel">
+      <div>
+        <p class="eyebrow">Arif Academy</p>
+        <h1>Static PDF Redirect Library</h1>
+        <p class="hero-copy">Fast static book redirects, search 10,000+ PDFs, and view download pages without backend code.</p>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Dark</button>
+    </header>
+
+    <main class="container">
+      <section class="search-panel" aria-label="Search books">
+        <div class="search-bar">
+          <input id="searchInput" type="search" placeholder="Search books by title, category, or keyword..." aria-label="Search books" />
+          <span class="search-icon">🔎</span>
+        </div>
+        <p class="search-meta" id="searchMeta">Load time optimized for 100k+ books.</p>
+      </section>
+
+      <section class="cards-grid" id="booksGrid" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Static site ready for GitHub Pages, Cloudflare Pages, Netlify, Vercel.</p>
+  </footer>
+
+  <script type="module" src="assets/js/index.js"></script>
+</body>
+</html>

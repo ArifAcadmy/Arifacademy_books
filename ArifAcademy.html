@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Book Details • Arif Academy</title>
+  <meta name="description" id="metaDescription" content="Open a PDF redirect page with full book details." />
+  <link rel="canonical" id="canonicalLink" href="https://arifacademy.com/book/" />
+  <meta property="og:title" id="ogTitle" content="Book Details • Arif Academy" />
+  <meta property="og:description" id="ogDescription" content="Open a PDF redirect page with full book details." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" id="ogUrl" content="https://arifacademy.com/book/book.html" />
+  <meta property="og:image" id="ogImage" content="assets/images/og-preview.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twitterTitle" content="Book Details • Arif Academy" />
+  <meta name="twitter:description" id="twitterDescription" content="Open a PDF redirect page with full book details." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body class="page-shell" data-theme="light">
+  <div class="page-shell__layout">
+    <header class="hero-panel hero-panel--small">
+      <div>
+        <p class="eyebrow">Arif Academy</p>
+        <h1 id="bookTitle">Loading book...</h1>
+        <p id="bookTagline" class="hero-copy">Arif Academy PDF redirect page for every book.</p>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Dark</button>
+    </header>
+
+    <main class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">/</span>
+        <span id="breadcrumbBook">Book</span>
+      </nav>
+
+      <article class="book-card" id="bookDetail" aria-busy="true">
+        <div class="book-hero">
+          <img id="bookImage" class="book-cover" src="assets/images/placeholder.svg" alt="Book cover" loading="lazy" />
+          <div class="book-meta">
+            <p class="book-category" id="bookCategory">Category</p>
+            <p class="book-description" id="bookDescription">Description will appear here.</p>
+            <div class="action-row">
+              <a id="downloadButton" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
+              <button id="copyLinkButton" class="button button-secondary" type="button">Copy Link</button>
+            </div>
+            <div class="book-stats">
+              <span id="viewsCount">Views: 0</span>
+              <span id="relatedCount">Related: 0</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="extra-actions">
+          <h2>Share & Save</h2>
+          <div class="action-grid">
+            <button class="button button-secondary" id="shareButton">Share</button>
+            <button class="button button-secondary" id="favoriteButton">Favorite</button>
+          </div>
+        </section>
+
+        <section class="book-description-panel" id="bookExtra"></section>
+      </article>
+
+      <section class="related-shell" id="relatedBooksSection">
+        <h2>Related Books</h2>
+        <div class="cards-grid" id="relatedBooksGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Static book redirect page, optimized for SEO and fast loading.</p>
+  </footer>
+
+  <script type="module" src="assets/js/book.js"></script>
+</body>
+</html>
