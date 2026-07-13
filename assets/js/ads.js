@@ -1,9 +1,9 @@
 // Adsterra Ads Configuration
 const AD_CONFIG = {
-  socialBar: {
-    enabled: true,
-    src: 'https://pl30331196.effectivecpmnetwork.com/09/42/71/0942710e78a69431a8f821a2cb34e717.js'
-  },
+  // socialBar: {
+  //   enabled: true,
+  //   src: 'https://pl30331196.effectivecpmnetwork.com/09/42/71/0942710e78a69431a8f821a2cb34e717.js'
+  // },
   banner160x300: {
     enabled: true,
     key: '6a5e0070b9078b481fecca8c6f34f9bd',
