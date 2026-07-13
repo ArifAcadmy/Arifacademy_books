@@ -9,10 +9,10 @@ const AD_CONFIG = {
     key: '6a5e0070b9078b481fecca8c6f34f9bd',
     src: '//www.highperformanceformat.com/6a5e0070b9078b481fecca8c6f34f9bd/invoke.js'
   },
-  native41: {
-    enabled: true,
-    src: 'https://pl30331420.effectivecpmnetwork.com/d577cf934f0808903c3a3787ac90265c/invoke.js'
-  }
+  // native41: {
+  //   enabled: true,
+  //   src: 'https://pl30331420.effectivecpmnetwork.com/d577cf934f0808903c3a3787ac90265c/invoke.js'
+  // }
 };
 
 // 1. Load Social Bar
