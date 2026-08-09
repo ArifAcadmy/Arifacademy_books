@@ -807,4 +807,23 @@ h1 {
   line-height: 1.5;
 }
 
+/* Footer Ad Container */
+.footer-ad-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .footer-ad-container {
+    display: flex;
+  }
+}
+
+
 
