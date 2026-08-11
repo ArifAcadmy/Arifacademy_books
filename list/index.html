@@ -45,18 +45,46 @@
     <p>Arif Academy • Comprehensive Practice Materials Library</p>
   </footer>
 
-  <div class="footer-ad-container">
-    <script>
-      atOptions = {
-        'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
-  </div>
+  <div class="ads-wrapper">
+    <button class="ads-close-btn" id="closeAdsBtn" aria-label="Close advertisements">&times;</button>
+    <div class="ad-slot-600">
+      <script>
+        atOptions = {
+          'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
+    </div>
+    
+    <div class="ad-slot-600">
+      <script>
+        atOptions = {
+          'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
+    </div>
+
+    <div class="ad-slot-300">
+      <script>
+        atOptions = {
+          'key' : '6a5e0070b9078b481fecca8c6f34f9bd',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/6a5e0070b9078b481fecca8c6f34f9bd/invoke.js"></script>
+    </div>
   </div>
 
   <script type="module">
@@ -65,6 +93,7 @@
     const listContainer = document.getElementById('bookListContainer');
     const themeToggle = document.getElementById('themeToggle');
     let activeTheme = localStorage.getItem('theme') || 'light';
+    let showAds = localStorage.getItem('show-ads') !== 'false';
 
     function setTheme(theme) {
       document.body.dataset.theme = theme;
@@ -72,10 +101,47 @@
       localStorage.setItem('theme', theme);
     }
 
+    function setAdsState(state) {
+      showAds = state;
+      localStorage.setItem('show-ads', showAds ? 'true' : 'false');
+      applyAdSettings();
+    }
+
+    function applyAdSettings() {
+      const adElements = document.querySelectorAll('.ads-wrapper, .book-sidebar-banner');
+      adElements.forEach(el => {
+        el.style.display = showAds ? '' : 'none';
+      });
+      const pageLayout = document.querySelector('.book-page-layout');
+      if (pageLayout) {
+        if (showAds) {
+          pageLayout.classList.remove('no-ads-layout');
+        } else {
+          pageLayout.classList.add('no-ads-layout');
+        }
+      }
+    }
+
     setTheme(activeTheme);
     themeToggle.addEventListener('click', () => {
       activeTheme = activeTheme === 'dark' ? 'light' : 'dark';
       setTheme(activeTheme);
+    });
+
+    setAdsState(showAds);
+
+    const closeAdsBtn = document.getElementById('closeAdsBtn');
+    if (closeAdsBtn) {
+      closeAdsBtn.addEventListener('click', () => {
+        setAdsState(false);
+      });
+    }
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'show-ads') {
+        const newState = localStorage.getItem('show-ads') !== 'false';
+        setAdsState(newState);
+      }
     });
 
     async function loadList() {

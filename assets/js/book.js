@@ -298,3 +298,41 @@ themeToggle.addEventListener('click', () => {
 favoriteButton.addEventListener('click', () => setFavorite());
 loadBook();
 registerServiceWorker();
+
+function applyAdSettings() {
+  const showAds = localStorage.getItem('show-ads') !== 'false';
+  
+  // Hide or show the footer ads wrapper and the side banners
+  const adElements = document.querySelectorAll('.ads-wrapper, .book-sidebar-banner');
+  adElements.forEach(el => {
+    el.style.display = showAds ? '' : 'none';
+  });
+
+  // Adjust book page layout column template if ads are hidden
+  const pageLayout = document.querySelector('.book-page-layout');
+  if (pageLayout) {
+    if (showAds) {
+      pageLayout.classList.remove('no-ads-layout');
+    } else {
+      pageLayout.classList.add('no-ads-layout');
+    }
+  }
+}
+
+function initCloseAds() {
+  const closeAdsBtn = document.getElementById('closeAdsBtn');
+  if (closeAdsBtn) {
+    closeAdsBtn.addEventListener('click', () => {
+      localStorage.setItem('show-ads', 'false');
+      applyAdSettings();
+    });
+  }
+}
+
+applyAdSettings();
+initCloseAds();
+window.addEventListener('storage', (event) => {
+  if (event.key === 'show-ads') {
+    applyAdSettings();
+  }
+});

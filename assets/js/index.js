@@ -136,3 +136,29 @@ installKeyboardShortcuts();
 redirectToBookFromQuery();
 fetchBooks();
 registerServiceWorker();
+
+function applyAdSettings() {
+  const showAds = localStorage.getItem('show-ads') !== 'false';
+  const adWrapper = document.querySelector('.ads-wrapper');
+  if (adWrapper) {
+    adWrapper.style.display = showAds ? '' : 'none';
+  }
+}
+
+function initCloseAds() {
+  const closeAdsBtn = document.getElementById('closeAdsBtn');
+  if (closeAdsBtn) {
+    closeAdsBtn.addEventListener('click', () => {
+      localStorage.setItem('show-ads', 'false');
+      applyAdSettings();
+    });
+  }
+}
+
+applyAdSettings();
+initCloseAds();
+window.addEventListener('storage', (event) => {
+  if (event.key === 'show-ads') {
+    applyAdSettings();
+  }
+});

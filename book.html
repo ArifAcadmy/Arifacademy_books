@@ -42,51 +42,119 @@
         <span id="breadcrumbBook">Book</span>
       </nav>
 
-      <article class="book-card" id="bookDetail" aria-busy="true">
-        <div class="book-hero">
-          <img id="bookImage" class="book-cover" src="assets/images/placeholder.svg" alt="Book cover" loading="lazy" />
-          <div class="book-meta">
-            <p class="book-category" id="bookCategory">Category</p>
-            <p class="book-description" id="bookDescription">Description will appear here.</p>
-            <div class="action-row">
-              <a id="downloadButton" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
-              <button id="copyLinkButton" class="button button-secondary" type="button">Copy Link</button>
+      <div class="book-page-layout">
+        <!-- Left Sidebar Banner -->
+        <div class="book-sidebar-banner left">
+          <a href="#" class="promo-banner-card" aria-label="Online IELTS Crash Course">
+            <img src="assets/online-ielts-crash-course.webp" alt="Online IELTS Crash Course" loading="lazy" />
+          </a>
+
+          <!-- Our Services Sidebar Card -->
+          <div class="services-sidebar-card">
+            <div class="services-sidebar-header">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+              <h3>Our Services</h3>
             </div>
-            <div class="book-stats">
-              <span id="viewsCount">Views: 0</span>
-            </div>
+            <ul class="services-sidebar-list">
+              <li>IELTS CBT Mock Unlimited (1 Month)</li>
+              <li>IELTS CBT Mock Unlimited (2 Months)</li>
+              <li>IELTS Crash Course</li>
+              <li>IELTS Beginners to Advance Course</li>
+              <li>Online Spoken English for Kids</li>
+              <li>IELTS Calculator with Scoring</li>
+            </ul>
           </div>
         </div>
 
-        <section class="extra-actions">
-          <h2>Share & Save</h2>
-          <div class="action-grid">
-            <button class="button button-secondary" id="shareButton">Share</button>
-            <button class="button button-secondary" id="favoriteButton">Favorite</button>
+        <!-- Main Book Content -->
+        <article class="book-card" id="bookDetail" aria-busy="true">
+          <div class="book-hero">
+            <img id="bookImage" class="book-cover" src="assets/images/placeholder.svg" alt="Book cover" loading="lazy" />
+            <div class="book-meta">
+              <p class="book-category" id="bookCategory">Category</p>
+              <p class="book-description" id="bookDescription">Description will appear here.</p>
+              <div class="action-row">
+                <a id="downloadButton" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
+                <button id="copyLinkButton" class="button button-secondary" type="button">Copy Link</button>
+              </div>
+              <div class="book-stats">
+                <span id="viewsCount">Views: 0</span>
+              </div>
+            </div>
           </div>
-        </section>
 
-        <section class="book-description-panel" id="bookExtra"></section>
-      </article>
+          <section class="extra-actions">
+            <h2>Share & Save</h2>
+            <div class="action-grid">
+              <button class="button button-secondary" id="shareButton">Share</button>
+              <button class="button button-secondary" id="favoriteButton">Favorite</button>
+            </div>
+          </section>
+
+          <section class="book-description-panel" id="bookExtra"></section>
+        </article>
+
+        <!-- Right Sidebar Banner -->
+        <div class="book-sidebar-banner right">
+          <a href="#" class="promo-banner-card" aria-label="IELTS Mock Test">
+            <img src="assets/ielts-mock-test.webp" alt="IELTS Mock Test" loading="lazy" />
+          </a>
+        </div>
+      </div>
     </main>
   </div>
 
 
   <footer class="site-footer">
-    <p>Static book redirect page, optimized for SEO and fast loading.</p>
+    <p>Arif Academy</p>
   </footer>
 
-  <div class="footer-ad-container">
-    <script>
-      atOptions = {
-        'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
+  <div class="ads-wrapper">
+    <button class="ads-close-btn" id="closeAdsBtn" aria-label="Close advertisements">&times;</button>
+
+    <!-- Script Ads (3 units in a row) -->
+    <div class="script-ads-row">
+      <div class="ad-slot-600">
+        <script>
+          atOptions = {
+            'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
+      </div>
+      
+      <div class="ad-slot-600">
+        <script>
+          atOptions = {
+            'key' : '5ec13601c1f42f3d768fe4d2de53aab6',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/5ec13601c1f42f3d768fe4d2de53aab6/invoke.js"></script>
+      </div>
+
+      <div class="ad-slot-300">
+        <script>
+          atOptions = {
+            'key' : '6a5e0070b9078b481fecca8c6f34f9bd',
+            'format' : 'iframe',
+            'height' : 300,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/6a5e0070b9078b481fecca8c6f34f9bd/invoke.js"></script>
+      </div>
+    </div>
   </div>
 
   <script type="module" src="assets/js/book.js"></script>

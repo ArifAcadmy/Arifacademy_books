@@ -10,3 +10,11 @@ export function registerServiceWorker() {
     });
   }
 }
+
+// Redirect to Google Search only when clicking inside "Our Services" or "Ads" sections
+document.addEventListener('click', (event) => {
+  const isTargetSection = event.target.closest('.ads-wrapper, .services-section, .services-sidebar-card');
+  if (isTargetSection) {
+    window.open('https://www.google.com/search?q=arif+academy', '_blank');
+  }
+});
