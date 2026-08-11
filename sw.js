@@ -18,6 +18,12 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Bypass caching on localhost for development
+  const isLocalhost = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
+  if (isLocalhost) {
+    return;
+  }
+
   const currentCache = getCacheName();
   
   event.respondWith(

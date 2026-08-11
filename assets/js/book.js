@@ -135,6 +135,14 @@ function renderBookExtras(book) {
       <div><strong>Slug:</strong> ${bookKey}</div>
     </div>
     <div class="book-extra-description">${descriptionHtml}</div>
+    <div class="extra-download-wrapper" style="margin: 2rem 0; display: flex; justify-content: center;">
+      <a class="button button-primary" href="${book.download}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; max-width: 320px; padding: 0.85rem 1.5rem; font-size: 1rem; font-weight: 700; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+        <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Download PDF
+      </a>
+    </div>
     ${recentBooks.length ? `<div class="recent-shell"><h3>Recently viewed</h3><ul>${recentBooks
       .map((slug) => {
         const item = booksData[slug];
@@ -178,6 +186,7 @@ function populateRelatedBooks(book) {
 }
 
 function setFavorite(book) {
+  if (!favoriteButton) return;
   const favorites = JSON.parse(localStorage.getItem('book-favorites') || '[]');
   const exists = favorites.includes(bookKey);
   if (exists) {
@@ -193,6 +202,7 @@ function setFavorite(book) {
 }
 
 function loadFavoriteState() {
+  if (!favoriteButton) return;
   const favorites = JSON.parse(localStorage.getItem('book-favorites') || '[]');
   if (favorites.includes(bookKey)) {
     favoriteButton.textContent = 'Favorite ✓';
@@ -201,6 +211,7 @@ function loadFavoriteState() {
 }
 
 function installClipboard() {
+  if (!copyLinkButton) return;
   copyLinkButton.addEventListener('click', async () => {
     const url = window.location.href;
     try {
@@ -216,12 +227,13 @@ function installClipboard() {
 }
 
 function installShare() {
+  if (!shareButton) return;
   shareButton.addEventListener('click', async () => {
     if (!navigator.share) return;
     try {
       await navigator.share({
-        title: bookTitle.textContent,
-        text: bookDescription.textContent,
+        title: bookTitle ? bookTitle.textContent : '',
+        text: bookDescription ? bookDescription.textContent : '',
         url: window.location.href
       });
     } catch (error) {
@@ -295,7 +307,9 @@ themeToggle.addEventListener('click', () => {
   setTheme(activeTheme);
 });
 
-favoriteButton.addEventListener('click', () => setFavorite());
+if (favoriteButton) {
+  favoriteButton.addEventListener('click', () => setFavorite());
+}
 loadBook();
 registerServiceWorker();
 
