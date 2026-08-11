@@ -1,43 +1,49 @@
-const CACHE_NAME = 'book-library-cache-v1';
-const assetsToCache = [
-  './',
-  './book.html',
-  './manifest.webmanifest',
-  './assets/css/styles.css',
-  './assets/js/index.js',
-  './assets/js/book.js',
-  './assets/js/pwa.js',
-  './data/book.json',
-  
-  './assets/images/placeholder.svg',
-  './assets/images/og-preview.svg',
-  './assets/images/icon-192.svg',
-  './assets/images/icon-512.svg'
-];
+const getCacheName = () => {
+  // Generates a unique cache key that changes every hour
+  const hourTimestamp = Math.floor(Date.now() / (1000 * 60 * 60));
+  return `book-library-cache-hour-${hourTimestamp}`;
+};
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(assetsToCache))
-  );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
+  const currentCache = getCacheName();
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    ))
+      keys.filter((key) => key !== currentCache).map((key) => caches.delete(key))
+    )).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
+  const currentCache = getCacheName();
+  
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
-      return caches.open(CACHE_NAME).then((cache) => {
-        if (event.request.method === 'GET' && response.ok) {
-          cache.put(event.request, response.clone());
-        }
-        return response;
+    caches.open(currentCache).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        // Fetch from network and update the current hour's cache
+        const networkFetch = fetch(event.request).then((networkResponse) => {
+          if (event.request.method === 'GET' && networkResponse.ok) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        }).catch(() => {
+          // Fallback if network fails
+          return cachedResponse;
+        });
+        
+        // Return cached response if exists, otherwise fetch from network
+        return cachedResponse || networkFetch;
       });
-    })).catch(() => cached)
+    })
+  );
+
+  // Asynchronously clean up any old hourly caches
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(
+      keys.filter((key) => key !== currentCache).map((key) => caches.delete(key))
+    ))
   );
 });
