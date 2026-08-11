@@ -871,34 +871,70 @@ h1 {
   align-items: start;
 }
 
-.book-sidebar-banner.left {
-  order: 2;
-}
-
-#bookDetail {
+.promo-banner-wrapper.mock-test {
   order: 1;
 }
 
-.book-sidebar-banner.right {
+#bookDetail {
+  order: 2;
+}
+
+.promo-banner-wrapper.crash-course {
   order: 3;
+}
+
+.mobile-ad-container {
+  display: block;
+  order: 4;
+  text-align: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.book-sidebar-banner.left {
+  order: 5;
+}
+
+@media (max-width: 1199px) {
+  .recent-shell {
+    display: none !important;
+  }
 }
 
 @media (min-width: 1200px) {
   .book-page-layout {
     grid-template-columns: 240px 1fr 240px;
+    grid-template-rows: auto auto;
     gap: 2rem;
   }
   
   .book-sidebar-banner.left {
+    grid-column: 1;
+    grid-row: 1 / span 2;
     order: unset;
   }
 
   #bookDetail {
+    grid-column: 2;
+    grid-row: 1 / span 2;
     order: unset;
   }
 
-  .book-sidebar-banner.right {
+  .promo-banner-wrapper.mock-test {
+    grid-column: 3;
+    grid-row: 1;
     order: unset;
+  }
+
+  .promo-banner-wrapper.crash-course {
+    grid-column: 3;
+    grid-row: 2;
+    order: unset;
+    margin-top: 1.5rem;
+  }
+
+  .mobile-ad-container {
+    display: none !important;
   }
 }
 
