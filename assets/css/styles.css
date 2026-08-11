@@ -883,16 +883,8 @@ h1 {
   order: 3;
 }
 
-.mobile-ad-container {
-  display: block;
-  order: 4;
-  text-align: center;
-  width: 100%;
-  margin: 1rem 0;
-}
-
 .book-sidebar-banner.left {
-  order: 5;
+  order: 4;
 }
 
 @media (max-width: 1199px) {
@@ -931,10 +923,6 @@ h1 {
     grid-row: 2;
     order: unset;
     margin-top: 1.5rem;
-  }
-
-  .mobile-ad-container {
-    display: none !important;
   }
 }
 
