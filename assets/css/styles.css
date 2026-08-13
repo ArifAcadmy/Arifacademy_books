@@ -766,6 +766,16 @@ h1 {
   font-weight: 600;
 }
 
+.footer-bottom-ad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  min-height: 320px;
+}
+
 /* Search Placeholder */
 .search-placeholder {
   grid-column: 1 / -1;
